@@ -41,6 +41,7 @@ func main() {
 	db, err := database.InitDB(config.DBConn)
 	if err != nil {
 		fmt.Println("gagal connect ke database", err)
+		return
 	}
 	defer db.Close()
 
@@ -66,7 +67,7 @@ func main() {
 	http.HandleFunc("/api/kategori", categoryHandler.HandleCategories)
 	http.HandleFunc("/api/kategori/", categoryHandler.HandleCategoriesByID)
 
-	err = http.ListenAndServe(addr, nil)
+	err = http.ListenAndServe(":"+config.Port, nil)
 	if err != nil {
 		fmt.Println("gagal running server", err)
 	}
