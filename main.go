@@ -56,15 +56,15 @@ func main() {
 		})
 	})
 
-	http.HandleFunc("api/produk", productHandler.HandleProducts)
-	http.HandleFunc("api/produk/", productHandler.HandleProductsByID)
+	http.HandleFunc("/api/produk", productHandler.HandleProducts)
+	http.HandleFunc("/api/produk/", productHandler.HandleProductsByID)
 
 	categoryRepo := repositories.NewCategoryRepository(db)
 	categoryService := services.NewCategoryService(categoryRepo)
 	categoryHandler := handlers.NewCategoryHandler(categoryService)
 
-	http.HandleFunc("api/categories", categoryHandler.HandleCategories)
-	http.HandleFunc("api/categories/", categoryHandler.HandleCategoriesByID)
+	http.HandleFunc("/api/kategori", categoryHandler.HandleCategories)
+	http.HandleFunc("/api/kategori/", categoryHandler.HandleCategoriesByID)
 
 	err = http.ListenAndServe(addr, nil)
 	if err != nil {
