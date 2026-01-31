@@ -29,14 +29,14 @@ func (h *CategoryHandler) HandleCategories(w http.ResponseWriter, r *http.Reques
 }
 
 func (h *CategoryHandler) GetAll(w http.ResponseWriter, r *http.Request) {
-	categorys, err := h.service.GetAll()
+	categories, err := h.service.GetAll()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(categorys)
+	json.NewEncoder(w).Encode(categories)
 }
 
 func (h *CategoryHandler) Create(w http.ResponseWriter, r *http.Request) {
@@ -72,7 +72,7 @@ func (h *CategoryHandler) HandleCategoriesByID(w http.ResponseWriter, r *http.Re
 }
 
 func (h *CategoryHandler) GetByID(w http.ResponseWriter, r *http.Request) {
-	idStr := strings.TrimPrefix(r.URL.Path, "/api/produk/")
+	idStr := strings.TrimPrefix(r.URL.Path, "/api/kategori/")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		http.Error(w, "Invalid category ID", http.StatusBadRequest)
@@ -90,7 +90,7 @@ func (h *CategoryHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *CategoryHandler) Update(w http.ResponseWriter, r *http.Request) {
-	idStr := strings.TrimPrefix(r.URL.Path, "/api/produk/")
+	idStr := strings.TrimPrefix(r.URL.Path, "/api/kategori/")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		http.Error(w, "Invalid category ID", http.StatusBadRequest)
@@ -116,7 +116,7 @@ func (h *CategoryHandler) Update(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *CategoryHandler) Delete(w http.ResponseWriter, r *http.Request) {
-	idStr := strings.TrimPrefix(r.URL.Path, "/api/produk/")
+	idStr := strings.TrimPrefix(r.URL.Path, "/api/kategori/")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		http.Error(w, "Invalid category ID", http.StatusBadRequest)
