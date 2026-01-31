@@ -17,6 +17,7 @@ import (
 type Config struct {
 	Port   string `mapstructure:"PORT"`
 	DBConn string `mapstructure:"DB_CONN"`
+	DBPort string `mapstructure:"DB_PORT"`
 }
 
 func main() {
@@ -32,13 +33,14 @@ func main() {
 	config := Config{
 		Port:   viper.GetString("PORT"),
 		DBConn: viper.GetString("DB_CONN"),
+		DBPort: viper.GetString("DB_PORT"),
 	}
 
 	addr := "0.0.0.0:" + config.Port
 	fmt.Println("Server running di", addr)
 
 	// Inisialisasi database
-	db, err := database.InitDB(config.DBConn)
+	db, err := database.InitDB(config.DBConn, config.DBPort)
 	if err != nil {
 		fmt.Println("gagal connect ke database", err)
 		return
