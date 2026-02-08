@@ -54,6 +54,13 @@ func main() {
 
 	http.HandleFunc("/api/checkout", transactionHandler.HandleCheckout)
 
+	reportRepo := repositories.NewReportRepository(db)
+	reportService := services.NewReportService(reportRepo)
+	reportHandler := handlers.NewReportHandler(reportService)
+
+	http.HandleFunc("/api/report/hari-ini", reportHandler.HandleTodayReport)
+	http.HandleFunc("/api/report", reportHandler.HandleReport)
+
 	productRepo := repositories.NewProductRepository(db)
 	productService := services.NewProductService(productRepo)
 	productHandler := handlers.NewProductHandler(productService)
